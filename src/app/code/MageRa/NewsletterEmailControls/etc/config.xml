@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default><magera_newsletter_email_controls><general><enabled>0</enabled><confirmation_request>0</confirmation_request><confirmation_success>0</confirmation_success><unsubscribe>0</unsubscribe></general></magera_newsletter_email_controls></default>
+</config>

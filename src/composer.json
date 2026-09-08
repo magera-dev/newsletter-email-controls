@@ -1,0 +1,16 @@
+{
+  "name": "magera/module-newsletter-email-controls",
+  "description": "MageRa newsletter transactional email controls for Magento 2.",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "require": {
+    "magera/module-base": "^1.1.0",
+    "php": "~8.4.0",
+    "magento/framework": "103.0.*"
+  },
+  "autoload": {
+    "files": ["app/code/MageRa/NewsletterEmailControls/registration.php"],
+    "psr-4": {"MageRa\\NewsletterEmailControls\\": "app/code/MageRa/NewsletterEmailControls"}
+  }
+}
