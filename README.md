@@ -12,6 +12,26 @@ Choose, per Magento configuration scope, whether Magento sends three newsletter 
 
 It is intended for stores whose consent workflow or external messaging system already handles one of these notices. It does not subscribe, confirm, unsubscribe, or modify subscriber data.
 
+## Problems it solves
+
+Some stores centralize subscriber communications in a consent platform, CRM, or
+email service provider. Sending Magento's native newsletter lifecycle message
+as well can produce duplicate customer emails or a message that does not match
+the store's approved communication flow. This module selectively stops the
+native send while leaving Magento's subscriber state and confirmation process
+unchanged.
+
+Typical uses include:
+
+- an external system sends the approved confirmation or unsubscribe notice;
+- a store has an established consent workflow and must prevent a duplicate
+  Magento message;
+- different store views require different newsletter communication policies.
+
+This module suppresses delivery only. It does not create replacement messages,
+sync data to another provider, or prove compliance with any consent or consumer
+notification obligation.
+
 ## Requirements
 
 - Magento Open Source or Adobe Commerce 2.4.x.
@@ -42,6 +62,19 @@ Open **Stores > Configuration > MageRa > Newsletter Email Controls** for the req
 
 Each email type remains untouched unless its own switch is enabled. Setting **Enable Controls** to `No` restores native Magento sending for all three email types.
 
+### Email journey map
+
+| Customer event | Native Magento email affected by this module | What remains unchanged |
+| --- | --- | --- |
+| A subscriber registers | Confirmation request | Subscriber record and confirmation-token flow |
+| A subscription is confirmed | Confirmation success | Subscription status and confirmation result |
+| A subscriber unsubscribes | Unsubscribe confirmation | Unsubscribe action and subscriber status |
+
+Enable only the switch that corresponds to a message your organization has
+intentionally replaced or no longer needs. For example, suppressing the
+confirmation request does not automatically suppress confirmation-success or
+unsubscribe messages.
+
 ## Before enabling
 
 Newsletter confirmation and unsubscribe messages can be part of a store's consent record and customer-notification obligations. Confirm the applicable legal, privacy, deliverability, and internal-process requirements before suppressing a message. If another system is expected to send the notification, test that hand-off and preserve the evidence required by your organization.
@@ -62,6 +95,18 @@ Use a staging environment and a dedicated test address to test each scenario:
 ## Troubleshooting
 
 If an email still sends, confirm both the master control and the relevant suppression switch are enabled in the active store scope, then flush configuration cache. If an expected email is missing, temporarily disable the relevant suppression switch and repeat the test with a new test address.
+
+## Safe rollout checklist
+
+1. Document which system, if any, sends the replacement customer notice.
+2. Configure one suppression switch in staging at the same scope used in
+   production.
+3. Test subscription, confirmation, and unsubscribe with separate new test
+   addresses; observe both Magento and the replacement system.
+4. Confirm the customer-facing notice and retained consent evidence meet your
+   organization's requirements before enabling the production setting.
+5. To restore Magento's default behavior, disable the relevant switch (or
+   **Enable Controls**) and flush cache. No subscriber data migration is needed.
 
 ## Support and licensing
 
